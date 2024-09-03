@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const fs = require('fs');
 
 app.use(express.static('public'))
 
@@ -12,7 +13,8 @@ app.use(express.static('public'))
 //   app.use(myLogger)
 
 app.use((req, res, next) => {
-    console.log('LOGGED')
+  fs.appendFileSync("log.txt", `Date: ${new Date()}, Method: ${req.method}, ip ${req.ip}, Original URL: ${req.originalUrl}\n` )
+    console.log("Date: ", Date.now(),"Method: ", req.method,"ip",req.ip, "Original URL: ", req.originalUrl)
     next()  
 })
 
